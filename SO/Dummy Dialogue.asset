@@ -13,18 +13,27 @@ MonoBehaviour:
   m_Name: Dummy Dialogue
   m_EditorClassIdentifier: 
   DialogueLines:
-  - CharacterName: Septi
+  - CharacterName: Ellen
     Lines:
-    - halo apa kabar
+    - "Hey, I haven\u2019t seen you around here before. Are you passing through?"
     CharacterSprite: {fileID: 0}
     CharactereId: 0
-  - CharacterName: Kipli
+  - CharacterName: Ryan
     Lines:
-    - Halo saya baik
+    - "More or less. Name\u2019s Kael. Just trying to find a quiet place to rest
+      before nightfall."
     CharacterSprite: {fileID: 0}
     CharactereId: 1
-  - CharacterName: Septi
+  - CharacterName: Ellen
     Lines:
-    - Baiklah kalau begitu
+    - "You picked a strange road for that. Bandits like to wait near this trail.\r\nI\u2019m
+      Elen, by the way."
+    CharacterSprite: {fileID: 0}
+    CharactereId: 0
+  - CharacterName: Ellen
+    Lines:
+    - 'Nice to meet you, Elen. And thanks for the warning.
+
+      Are you a local?'
     CharacterSprite: {fileID: 0}
     CharactereId: 0
