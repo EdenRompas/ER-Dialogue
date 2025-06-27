@@ -6,6 +6,7 @@ using TMPro;
 public class UI_Dialogue : MonoBehaviour
 {
     [SerializeField] private DialogueManager _dialogueManager;
+    [SerializeField] private UI_CanvasController _canvasControllerUI;
 
     [SerializeField] private GameObject _dialoguePanel;
     [SerializeField] private TMP_Text _dialogueText;
@@ -16,17 +17,19 @@ public class UI_Dialogue : MonoBehaviour
     {
         _dialogueManager.OnShowDialogueAndGetData += SetDialogue;
         _dialogueManager.OnShowDialogue += ActivatedDialogue;
-        _dialogueManager.OnEndDialogue += DeactiveDialogue;
+        _dialogueManager.OnEndDialogue += DeactivedDialogue;
     }
 
     public void ActivatedDialogue()
     {
         _dialoguePanel.SetActive(true);
+        _canvasControllerUI.DeactivatedAllPanel();
     }
 
-    public void DeactiveDialogue()
+    public void DeactivedDialogue()
     {
         _dialoguePanel.SetActive(false);
+        _canvasControllerUI.ActivatedAllPanel();
     }
 
     public void SetDialogue(string characterName, Sprite characterSprite, string line, int characterId)
@@ -38,8 +41,15 @@ public class UI_Dialogue : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
-        _charactersImage[characterId].gameObject.SetActive(true);
-        _charactersImage[characterId].sprite = characterSprite;
+        if (characterSprite != null)
+        {
+            _charactersImage[characterId].gameObject.SetActive(true);
+            _charactersImage[characterId].sprite = characterSprite;
+        }
+        else
+        {
+            _charactersImage[characterId].gameObject.SetActive(false);
+        }
 
         _dialogueText.text = line;
     }
