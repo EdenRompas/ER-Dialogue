@@ -41,6 +41,8 @@ public class DialogueManager : MonoBehaviour
         _isDialogueActive = true;
 
         ShowCurrentLine();
+
+        OnShowDialogue?.Invoke();
     }
 
     private void NextLine()
@@ -71,7 +73,6 @@ public class DialogueManager : MonoBehaviour
         string line = currentCharacter.Lines[_currentLineIndex];
 
         OnShowDialogueAndGetData?.Invoke(currentCharacter.CharacterName, currentCharacter.CharacterSprite, line, currentCharacter.CharactereId);
-        OnShowDialogue?.Invoke();
     }
 
     private void EndDialogue()

@@ -8,7 +8,6 @@ public class UI_Dialogue : MonoBehaviour
     [SerializeField] private DialogueManager _dialogueManager;
     [SerializeField] private UI_CanvasController _canvasControllerUI;
 
-    [SerializeField] private GameObject _dialoguePanel;
     [SerializeField] private TMP_Text _dialogueText;
     [SerializeField] private TMP_Text _characterNameText;
     [SerializeField] private List<Image> _charactersImage;
@@ -22,14 +21,12 @@ public class UI_Dialogue : MonoBehaviour
 
     public void ActivatedDialogue()
     {
-        _dialoguePanel.SetActive(true);
-        _canvasControllerUI.DeactivatedAllPanel();
+        _canvasControllerUI.ActivatedPanel("dialogue");
     }
 
     public void DeactivedDialogue()
     {
-        _dialoguePanel.SetActive(false);
-        _canvasControllerUI.ActivatedAllPanel();
+        _canvasControllerUI.DeactivatedPanel("dialogue");
     }
 
     public void SetDialogue(string characterName, Sprite characterSprite, string line, int characterId)
