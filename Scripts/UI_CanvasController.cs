@@ -31,7 +31,7 @@ public class UI_CanvasController : MonoBehaviour
 
     private bool _isDelayAnimate;
 
-    private void Start()
+    private void Awake()
     {
         foreach (var item in _panels)
         {
