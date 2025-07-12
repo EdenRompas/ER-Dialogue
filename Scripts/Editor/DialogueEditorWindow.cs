@@ -9,12 +9,13 @@ public class DialogueNodeEditor : EditorWindow
     private List<DialogueConnection> connections = new List<DialogueConnection>();
     private DialogueNode connectingNode = null;
     private DialogueNode selectedNode = null;
-    private Vector2 dragOffset;
+    private SO_Dialogue currentSO = null;
 
     [MenuItem("Tools/Dialogue Node Editor")]
-    public static void OpenWindow()
+    public static void OpenWindow(SO_Dialogue dialogueSO)
     {
-        GetWindow<DialogueNodeEditor>("Dialogue Editor");
+        var window = GetWindow<DialogueNodeEditor>("Dialogue Editor");
+        window.LoadFromSO(dialogueSO);
     }
 
     private void OnGUI()
@@ -22,15 +23,44 @@ public class DialogueNodeEditor : EditorWindow
         ProcessEvents(Event.current);
 
         GUILayout.Space(5);
-        if (GUILayout.Button("Add Node"))
+
+        EditorGUILayout.BeginHorizontal();
+
+        if (currentSO != null)
+        {
+            EditorGUILayout.BeginVertical();
+            GUILayout.Label("Editing: " + currentSO.name, EditorStyles.boldLabel);
+            EditorGUILayout.EndVertical();
+        }
+        else
+        {
+            EditorGUILayout.LabelField("No SO selected", EditorStyles.helpBox);
+        }
+
+        GUILayout.FlexibleSpace();
+
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(320));
+        if (GUILayout.Button("Add Node", GUILayout.Height(24)))
         {
             nodes.Add(new DialogueNode(new Vector2(100, 100)));
         }
 
-        if (GUILayout.Button("Save to SO"))
+        EditorGUI.BeginDisabledGroup(currentSO == null);
+        if (GUILayout.Button("Save to Current SO", GUILayout.Height(24)))
+        {
+            SaveToCurrentSO();
+        }
+        EditorGUI.EndDisabledGroup();
+
+        if (GUILayout.Button("Save New SO", GUILayout.Height(24)))
         {
             SaveToSO();
         }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.EndHorizontal();
+
+        GUILayout.Space(5);
 
         DrawConnections();
 
@@ -124,8 +154,6 @@ public class DialogueNodeEditor : EditorWindow
             selectedNode = GetNodeAtPoint(e.mousePosition);
             if (selectedNode != null)
             {
-                dragOffset = e.mousePosition - selectedNode.rect.position;
-
                 if (connectingNode != null && connectingNode != selectedNode)
                 {
                     bool alreadyConnected = connections.Exists(c => c.fromNode == connectingNode);
@@ -166,6 +194,62 @@ public class DialogueNodeEditor : EditorWindow
         }
         return null;
     }
+
+    private void LoadFromSO(SO_Dialogue dialogueSO)
+    {
+        currentSO = dialogueSO;
+        nodes.Clear();
+        connections.Clear();
+
+        if (dialogueSO.DialogueLines == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < dialogueSO.DialogueLines.Count; i++)
+        {
+            var line = dialogueSO.DialogueLines[i];
+            var node = new DialogueNode(new Vector2(100 + i * 350, 100));
+            node.characterName = line.CharacterName;
+            node.characterSprite = line.CharacterSprite;
+            node.characterId = line.CharactereId;
+            node.lines = new List<string>();
+            node.ReinitList();
+            nodes.Add(node);
+        }
+
+        for (int i = 0; i < nodes.Count - 1; i++)
+        {
+            connections.Add(new DialogueConnection(nodes[i], nodes[i + 1]));
+        }
+    }
+
+    private void SaveToCurrentSO()
+    {
+        if (currentSO == null) return;
+
+        currentSO.DialogueLines = new List<SO_Dialogue.DialogueLine>();
+        List<DialogueNode> ordered = GetOrderedNodes();
+
+        foreach (var node in ordered)
+        {
+            var line = new SO_Dialogue.DialogueLine
+            {
+                CharacterName = node.characterName,
+                Lines = new List<string>(node.lines),
+                CharacterSprite = node.characterSprite,
+                CharactereId = node.characterId
+            };
+            currentSO.DialogueLines.Add(line);
+        }
+
+        EditorUtility.SetDirty(currentSO);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Dialogue SO updated!");
+    }
+
+
 
     void SaveToSO()
     {
