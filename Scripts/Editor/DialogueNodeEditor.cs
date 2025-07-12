@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System.Collections.Generic;
 
 public class DialogueNodeEditor : EditorWindow
@@ -203,6 +202,7 @@ public class DialogueNodeEditor : EditorWindow
 
         if (dialogueSO.DialogueLines == null)
         {
+            dialogueSO.DialogueLines = new List<SO_Dialogue.DialogueLine>();
             return;
         }
 
@@ -213,7 +213,7 @@ public class DialogueNodeEditor : EditorWindow
             node.characterName = line.CharacterName;
             node.characterSprite = line.CharacterSprite;
             node.characterId = line.CharactereId;
-            node.lines = new List<string>();
+            node.lines = line.Lines;
             node.ReinitList();
             nodes.Add(node);
         }
