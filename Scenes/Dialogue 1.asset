@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3954353d284bcdd4e8419b6c2c715891, type: 3}
   m_Name: Dialogue 1
   m_EditorClassIdentifier: 
-  StartNode:
-    Position: {x: 0, y: 0}
-    ConnectedNodeGuids:
-    - 922b37b2-1f10-481c-9707-d291c699899f
   DialogueLines:
-  - Guid: 922b37b2-1f10-481c-9707-d291c699899f
-    CharacterName: A
+  - CharacterName: A
     Lines:
-    - 
+    - AA
+    CharacterSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    CharactereId: 0
+  - CharacterName: B
+    Lines:
+    - BB
+    CharacterSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    CharactereId: 1
+  - CharacterName: CC
+    Lines:
+    - CC
     CharacterSprite: {fileID: 0}
     CharactereId: 0
-    Position: {x: 157.33334, y: -19.333334}
-    ConnectedNodeGuids: []

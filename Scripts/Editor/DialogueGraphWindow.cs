@@ -152,7 +152,7 @@ public class DialogueGraphWindow : EditorWindow
 
         Dictionary<string, DialogueNode> createdNodes = new();
 
-        if (dialogueSO.DialogueLines.Count == 0)
+        if (dialogueSO.DialogueLines == null)
         {
             _dialogueGraphView.CreateStartNode();
 
@@ -161,18 +161,17 @@ public class DialogueGraphWindow : EditorWindow
 
         foreach (var nodeData in dialogueSO.DialogueLines)
         {
-            var node = new DialogueNode()
-            {
-                CharacterName = nodeData.CharacterName,
-                CharacterId = nodeData.CharactereId,
-                CharacterSprite = nodeData.CharacterSprite,
-                Lines = new List<string>(nodeData.Lines),
-                Guid = nodeData.Guid
-            };
+            var node = new DialogueNode();
+            node.InitializeNodeData(
+                nodeData.CharacterName,
+                nodeData.CharactereId,
+                nodeData.CharacterSprite,
+                nodeData.Lines
+            );
 
+            node.Guid = nodeData.Guid;
             node.SetPosition(new Rect(nodeData.Position, new Vector2(200, 150)));
             _dialogueGraphView.AddElement(node);
-
             createdNodes.Add(nodeData.Guid, node);
         }
 

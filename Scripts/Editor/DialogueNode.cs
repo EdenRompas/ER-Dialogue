@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class DialogueNode : Node
 {
-    public string Guid;
+    public string Guid { get; set; }
 
     public string CharacterName { get; set; }
     public List<string> Lines { get; set; } = new List<string>();
@@ -60,6 +60,33 @@ public class DialogueNode : Node
         AddOutputPort("Out");
         RefreshExpandedState();
         RefreshPorts();
+    }
+
+    public void InitializeNodeData(string characterName, int characterId, Sprite characterSprite, List<string> lines)
+    {
+        CharacterName = characterName;
+        CharacterId = characterId;
+        CharacterSprite = characterSprite;
+        Lines = new List<string>(lines);
+
+        foreach (var child in mainContainer.Children())
+        {
+            if (child is TextField nameField && nameField.label == "Character")
+            {
+                nameField.SetValueWithoutNotify(characterName);
+                title = string.IsNullOrEmpty(characterName) ? "Input Name" : characterName;
+            }
+            else if (child is IntegerField idField && idField.label == "Character ID")
+            {
+                idField.SetValueWithoutNotify(characterId);
+            }
+            else if (child is ObjectField spriteField && spriteField.label == "Sprite")
+            {
+                spriteField.SetValueWithoutNotify(characterSprite);
+            }
+        }
+
+        RedrawLines();
     }
 
     private void DrawLinesList()

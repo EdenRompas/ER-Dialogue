@@ -7,7 +7,7 @@ public class SO_Dialogue : ScriptableObject
     [System.Serializable]
     public class DialogueLine
     {
-        public string Guid;
+        public string Guid { get; set; }
 
         public string CharacterName;
 
@@ -19,15 +19,15 @@ public class SO_Dialogue : ScriptableObject
         public Sprite CharacterSprite;
         public int CharactereId;
 
-        public Vector2 Position;
-        public List<string> ConnectedNodeGuids;
+        public Vector2 Position { get; set; }
+        public List<string> ConnectedNodeGuids { get; set; }
     }
 
     [System.Serializable]
     public class StartNodeData
     {
-        public Vector2 Position;
-        public List<string> ConnectedNodeGuids;
+        public Vector2 Position { get; set; }
+        public List<string> ConnectedNodeGuids { get; set; }
     }
 
     public StartNodeData StartNode;
