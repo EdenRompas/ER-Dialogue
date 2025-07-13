@@ -109,8 +109,9 @@ public class DialogueGraphWindow : EditorWindow
                     Guid = dv.Guid,
                     CharacterName = dv.CharacterName,
                     Lines = new List<string>(dv.Lines),
+                    IsShowIcon = dv.IsShowIcon,
+                    IconPosition = dv.IconPosition,
                     CharacterSprite = dv.CharacterSprite,
-                    CharactereId = dv.CharacterId,
                     Position = dv.GetPosition().position,
                     ConnectedNodeGuids = new List<string>()
                 };
@@ -164,7 +165,8 @@ public class DialogueGraphWindow : EditorWindow
             var node = new DialogueNode();
             node.InitializeNodeData(
                 nodeData.CharacterName,
-                nodeData.CharactereId,
+                nodeData.IsShowIcon,
+                nodeData.IconPosition,
                 nodeData.CharacterSprite,
                 nodeData.Lines
             );

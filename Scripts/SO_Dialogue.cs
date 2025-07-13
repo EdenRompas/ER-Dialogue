@@ -1,6 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum IconPosition
+{
+    Left,
+    Right
+}
+
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue/New Dialogue")]
 public class SO_Dialogue : ScriptableObject
 {
@@ -16,9 +22,10 @@ public class SO_Dialogue : ScriptableObject
         public List<string> Lines;
 
         [Space]
+        public bool IsShowIcon;
         public Sprite CharacterSprite;
-        public int CharactereId;
-
+        public IconPosition IconPosition;
+        
         public Vector2 Position { get; set; }
         public List<string> ConnectedNodeGuids { get; set; }
     }

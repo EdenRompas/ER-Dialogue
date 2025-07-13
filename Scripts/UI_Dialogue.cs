@@ -29,7 +29,7 @@ public class UI_Dialogue : MonoBehaviour
         _canvasControllerUI.DeactivatedPanel("dialogue");
     }
 
-    public void SetDialogue(string characterName, Sprite characterSprite, string line, int characterId)
+    public void SetDialogue(string characterName, Sprite characterSprite, string line, IconPosition iconPosition)
     {
         _characterNameText.text = characterName;
 
@@ -38,14 +38,31 @@ public class UI_Dialogue : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
+        int imageId = 0;
+
+        switch(iconPosition)
+        {
+            case IconPosition.Left:
+
+                imageId = 0;
+
+                break;
+
+            case IconPosition.Right:
+
+                imageId = 1;
+
+                break;
+        }
+
         if (characterSprite != null)
         {
-            _charactersImage[characterId].gameObject.SetActive(true);
-            _charactersImage[characterId].sprite = characterSprite;
+            _charactersImage[imageId].gameObject.SetActive(true);
+            _charactersImage[imageId].sprite = characterSprite;
         }
         else
         {
-            _charactersImage[characterId].gameObject.SetActive(false);
+            _charactersImage[imageId].gameObject.SetActive(false);
         }
 
         _dialogueText.text = line;

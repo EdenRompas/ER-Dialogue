@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Action<string, Sprite, string, int> OnShowDialogueAndGetData;
+    public Action<string, Sprite, string, IconPosition> OnShowDialogueAndGetData;
     public Action OnShowDialogue;
     public Action OnEndDialogue;
 
@@ -72,7 +72,7 @@ public class DialogueManager : MonoBehaviour
         var currentCharacter = _currentData.DialogueLines[_currentCharacterIndex];
         string line = currentCharacter.Lines[_currentLineIndex];
 
-        OnShowDialogueAndGetData?.Invoke(currentCharacter.CharacterName, currentCharacter.CharacterSprite, line, currentCharacter.CharactereId);
+        OnShowDialogueAndGetData?.Invoke(currentCharacter.CharacterName, currentCharacter.CharacterSprite, line, currentCharacter.IconPosition);
     }
 
     private void EndDialogue()

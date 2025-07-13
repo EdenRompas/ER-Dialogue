@@ -11,10 +11,16 @@ public class DialogueNode : Node
     public string CharacterName { get; set; }
     public List<string> Lines { get; set; } = new List<string>();
     public Sprite CharacterSprite { get; set; }
-    public int CharacterId { get; set; }
+    public bool IsShowIcon { get; set; }
+    public IconPosition IconPosition { get; set; }
 
     public Port InputPort { get; private set; }
     public Port OutputPort {  get; private set; }
+
+    private TextField _characterName;
+    private Toggle _showIconToggle;
+    private ObjectField _spriteField;
+    private EnumField _iconPositionField;
 
     private VisualElement _linesContainer;
 
@@ -24,8 +30,8 @@ public class DialogueNode : Node
 
         title = "Input Name";
 
-        var nameField = new TextField("Character");
-        nameField.RegisterValueChangedCallback(evt =>
+        _characterName = new TextField("Name");
+        _characterName.RegisterValueChangedCallback(evt =>
         {
             CharacterName = evt.newValue;
             title = evt.newValue;
@@ -35,19 +41,39 @@ public class DialogueNode : Node
                 title = "Input Name";
             }
         });
-        mainContainer.Add(nameField);
+        mainContainer.Add(_characterName);
 
-        var idField = new IntegerField("Character ID");
-        idField.RegisterValueChangedCallback(evt => CharacterId = evt.newValue);
-        mainContainer.Add(idField);
+        
 
-        var spriteField = new ObjectField("Sprite")
+        _showIconToggle = new Toggle("Is Show Icon");
+        _showIconToggle.RegisterValueChangedCallback(evt =>
+        {
+            IsShowIcon = evt.newValue;
+            UpdateIconVisibility();
+        });
+        mainContainer.Add(_showIconToggle);
+
+        _spriteField = new ObjectField("Character Sprite")
         {
             objectType = typeof(Sprite),
             allowSceneObjects = false
         };
-        spriteField.RegisterValueChangedCallback(evt => CharacterSprite = evt.newValue as Sprite);
-        mainContainer.Add(spriteField);
+        _spriteField.RegisterValueChangedCallback(evt => CharacterSprite = evt.newValue as Sprite);
+        mainContainer.Add(_spriteField);
+
+        var iconPositionField = new EnumField("Icon Position", IconPosition.Left);
+        iconPositionField.Init(IconPosition.Left);
+
+        iconPositionField.RegisterValueChangedCallback(evt =>
+        {
+            IconPosition = (IconPosition)evt.newValue;
+        });
+        mainContainer.Add(iconPositionField);
+
+        iconPositionField.style.display = DisplayStyle.None;
+        _iconPositionField = iconPositionField;
+
+        UpdateIconVisibility();
 
         if (Lines.Count == 0)
         {
@@ -58,35 +84,36 @@ public class DialogueNode : Node
 
         AddInputPort("In");
         AddOutputPort("Out");
+
         RefreshExpandedState();
         RefreshPorts();
     }
 
-    public void InitializeNodeData(string characterName, int characterId, Sprite characterSprite, List<string> lines)
+    public void InitializeNodeData(string characterName, bool isShowIcon, IconPosition iconPosition, Sprite characterSprite, List<string> lines)
     {
         CharacterName = characterName;
-        CharacterId = characterId;
+        IsShowIcon = isShowIcon;
+        IconPosition = iconPosition;
         CharacterSprite = characterSprite;
         Lines = new List<string>(lines);
 
-        foreach (var child in mainContainer.Children())
-        {
-            if (child is TextField nameField && nameField.label == "Character")
-            {
-                nameField.SetValueWithoutNotify(characterName);
-                title = string.IsNullOrEmpty(characterName) ? "Input Name" : characterName;
-            }
-            else if (child is IntegerField idField && idField.label == "Character ID")
-            {
-                idField.SetValueWithoutNotify(characterId);
-            }
-            else if (child is ObjectField spriteField && spriteField.label == "Sprite")
-            {
-                spriteField.SetValueWithoutNotify(characterSprite);
-            }
-        }
+        title = string.IsNullOrEmpty(characterName) ? "Input Name" : characterName;
 
+        _characterName.SetValueWithoutNotify(characterName);
+        _showIconToggle?.SetValueWithoutNotify(IsShowIcon);
+        _spriteField?.SetValueWithoutNotify(CharacterSprite);
+        _iconPositionField?.SetValueWithoutNotify(IconPosition);
+
+        UpdateIconVisibility();
         RedrawLines();
+    }
+
+    private void UpdateIconVisibility()
+    {
+        var display = IsShowIcon ? DisplayStyle.Flex : DisplayStyle.None;
+
+        _spriteField.style.display = display;
+        _iconPositionField.style.display = display;
     }
 
     private void DrawLinesList()
