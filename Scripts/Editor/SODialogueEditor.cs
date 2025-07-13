@@ -11,7 +11,8 @@ public class SO_DialogueEditor : Editor
         GUILayout.Space(10);
         if (GUILayout.Button("Edit"))
         {
-            DialogueNodeEditor.OpenWindow((SO_Dialogue)target);
+            var targetSO = (SO_Dialogue)target;
+            DialogueGraphWindow.OpenDialogueGraphWindow(targetSO);
         }
     }
 }
