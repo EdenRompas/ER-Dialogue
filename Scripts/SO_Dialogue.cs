@@ -22,10 +22,10 @@ public class SO_Dialogue : ScriptableObject
         public List<string> Lines;
 
         [Space]
-        public bool IsShowIcon;
         public Sprite CharacterSprite;
         public IconPosition IconPosition;
-        
+
+        public bool IsShowIcon { get; set; }
         public Vector2 Position { get; set; }
         public List<string> ConnectedNodeGuids { get; set; }
     }
@@ -33,10 +33,13 @@ public class SO_Dialogue : ScriptableObject
     [System.Serializable]
     public class StartNodeData
     {
-        public Vector2 Position { get; set; }
-        public List<string> ConnectedNodeGuids { get; set; }
+        public Vector2 Position;
+        public List<string> ConnectedNodeGuids;
     }
 
+    [HideInInspector]
     public StartNodeData StartNode;
+
+    [HideInInspector]
     public List<DialogueLine> DialogueLines;
 }
