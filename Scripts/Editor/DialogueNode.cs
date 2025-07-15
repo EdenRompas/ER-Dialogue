@@ -27,10 +27,11 @@ public class DialogueNode : Node
     public DialogueNode()
     {
         mainContainer.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+        style.minWidth = 256;
 
         Guid = System.Guid.NewGuid().ToString();
 
-        title = "Input Name";
+        title = "Name";
 
         _characterName = new TextField("Name");
         _characterName.RegisterValueChangedCallback(evt =>
@@ -44,8 +45,6 @@ public class DialogueNode : Node
             }
         });
         mainContainer.Add(_characterName);
-
-        
 
         _showIconToggle = new Toggle("Is Show Icon");
         _showIconToggle.RegisterValueChangedCallback(evt =>

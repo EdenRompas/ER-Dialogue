@@ -9,6 +9,7 @@ public class DialogueGraphWindow : EditorWindow
 {
     private DialogueGraphView _dialogueGraphView;
     private SO_Dialogue _dialogueSO;
+    private Label _fileNameLabel;
 
     public static void OpenDialogueGraphWindow(SO_Dialogue dialogueSO)
     {
@@ -39,17 +40,53 @@ public class DialogueGraphWindow : EditorWindow
     {
         var toolbar = new Toolbar();
 
-        var saveButton = new Button(() => Save())
-        {
-            text = "Save"
-        };
-        toolbar.Add(saveButton);
+        var leftContainer = new VisualElement();
+        leftContainer.style.flexDirection = FlexDirection.Row;
+        leftContainer.style.flexGrow = 1;
 
         var addNodeButton = new Button(() => _dialogueGraphView.CreateNode())
         {
             text = "Add Node"
         };
-        toolbar.Add(addNodeButton);
+        leftContainer.Add(addNodeButton);
+
+        var centerContainer = new VisualElement();
+        centerContainer.style.flexDirection = FlexDirection.Row;
+        centerContainer.style.justifyContent = Justify.Center;
+        centerContainer.style.alignItems = Align.Center;
+        centerContainer.style.flexGrow = 1;
+
+        _fileNameLabel = new Label
+        {
+            text = "No File Selected",
+            style =
+            {
+                unityFontStyleAndWeight = FontStyle.Bold,
+                fontSize = 12
+            }
+        };
+        centerContainer.Add(_fileNameLabel);
+
+        var rightContainer = new VisualElement();
+        rightContainer.style.flexDirection = FlexDirection.Row;
+        rightContainer.style.justifyContent = Justify.FlexEnd;
+        rightContainer.style.flexGrow = 1;
+
+        var saveButton = new Button(() => Save())
+        {
+            text = "Save"
+        };
+        rightContainer.Add(saveButton);
+
+        var saveNewButton = new Button(() => SaveAsNew())
+        {
+            text = "Save New"
+        };
+        rightContainer.Add(saveNewButton);
+
+        toolbar.Add(leftContainer);
+        toolbar.Add(centerContainer);
+        toolbar.Add(rightContainer);
 
         rootVisualElement.Add(toolbar);
     }
@@ -143,11 +180,40 @@ public class DialogueGraphWindow : EditorWindow
 
         EditorUtility.SetDirty(_dialogueSO);
         AssetDatabase.SaveAssets();
-        Debug.Log($"Saved {_dialogueSO.DialogueLines.Count} connected dialogue nodes.");
+        Debug.Log($"Saved dialogue nodes.");
     }
+
+    private void SaveAsNew()
+    {
+        string path = EditorUtility.SaveFilePanelInProject(
+            "Save New Dialogue",
+            "New Dialogue",
+            "asset",
+            "Please enter a file name to save the dialogue."
+        );
+
+        if (string.IsNullOrEmpty(path)) return;
+
+        var newSO = ScriptableObject.CreateInstance<SO_Dialogue>();
+
+        var oldSO = _dialogueSO;
+
+        _dialogueSO = newSO;
+        Save();
+
+        _dialogueSO = oldSO;
+
+        AssetDatabase.CreateAsset(newSO, path);
+        AssetDatabase.SaveAssets();
+        EditorUtility.SetDirty(newSO);
+
+        Debug.Log($"New dialogue saved as: {path}");
+    }
+
 
     private void Load(SO_Dialogue dialogueSO)
     {
+        _fileNameLabel.text = dialogueSO.name;
         _dialogueSO = dialogueSO;
         _dialogueGraphView.ClearGraph();
 

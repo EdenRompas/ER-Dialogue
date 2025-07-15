@@ -27,6 +27,12 @@ public class SO_DialogueEditor : Editor
             var characterSpriteProp = lineProp.FindPropertyRelative("CharacterSprite");
             var iconPositionProp = lineProp.FindPropertyRelative("IconPosition");
 
+            var guidProp = lineProp.FindPropertyRelative("Guid");
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.PropertyField(guidProp);
+            EditorGUI.EndDisabledGroup();
+
+
             EditorGUILayout.BeginVertical("box");
             EditorGUI.BeginDisabledGroup(true);
 

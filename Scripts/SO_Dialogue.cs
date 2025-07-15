@@ -13,13 +13,13 @@ public class SO_Dialogue : ScriptableObject
     [System.Serializable]
     public class DialogueLine
     {
-        public string Guid { get; set; }
+        public string Guid;
 
         public string CharacterName;
 
         [Space]
         [TextArea(3, 5)]
-        public List<string> Lines;
+        public List<string> Lines = new List<string>();
 
         [Space]
         public Sprite CharacterSprite;
@@ -34,12 +34,12 @@ public class SO_Dialogue : ScriptableObject
     public class StartNodeData
     {
         public Vector2 Position;
-        public List<string> ConnectedNodeGuids;
+        public List<string> ConnectedNodeGuids = new List<string>();
     }
 
     [HideInInspector]
     public StartNodeData StartNode;
 
     [HideInInspector]
-    public List<DialogueLine> DialogueLines;
+    public List<DialogueLine> DialogueLines = new List<DialogueLine>();
 }
