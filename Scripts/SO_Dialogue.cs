@@ -25,9 +25,9 @@ public class SO_Dialogue : ScriptableObject
         public Sprite CharacterSprite;
         public IconPosition IconPosition;
 
-        public bool IsShowIcon { get; set; }
-        public Vector2 Position { get; set; }
-        public List<string> ConnectedNodeGuids { get; set; }
+        public bool IsShowIcon;
+        public Vector2 Position;
+        public List<string> ConnectedNodeGuids;
     }
 
     [System.Serializable]

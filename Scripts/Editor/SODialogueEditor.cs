@@ -26,6 +26,9 @@ public class SO_DialogueEditor : Editor
             var linesListProp = lineProp.FindPropertyRelative("Lines");
             var characterSpriteProp = lineProp.FindPropertyRelative("CharacterSprite");
             var iconPositionProp = lineProp.FindPropertyRelative("IconPosition");
+            var isShowIconProp = lineProp.FindPropertyRelative("IsShowIcon");
+            var positionProp = lineProp.FindPropertyRelative("Position");
+            var connectedNodeGuidProp = lineProp.FindPropertyRelative("ConnectedNodeGuids");
 
             var guidProp = lineProp.FindPropertyRelative("Guid");
             EditorGUI.BeginDisabledGroup(true);
@@ -40,6 +43,10 @@ public class SO_DialogueEditor : Editor
             EditorGUILayout.PropertyField(characterSpriteProp);
             EditorGUILayout.PropertyField(iconPositionProp);
             EditorGUILayout.PropertyField(linesListProp, true);
+
+            EditorGUILayout.PropertyField(isShowIconProp);
+            EditorGUILayout.PropertyField(positionProp);
+            EditorGUILayout.PropertyField(connectedNodeGuidProp);
 
             EditorGUI.EndDisabledGroup();
             EditorGUILayout.EndVertical();
