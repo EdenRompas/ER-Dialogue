@@ -29,7 +29,7 @@ public class UI_Dialogue : MonoBehaviour
         _canvasControllerUI.DeactivatedPanel("dialogue");
     }
 
-    public void SetDialogue(string characterName, Sprite characterSprite, string line, IconPosition iconPosition)
+    public void SetDialogue(string characterName, Sprite characterSprite, string line, IconPosition iconPosition, bool isShowIcon)
     {
         _characterNameText.text = characterName;
 
@@ -55,7 +55,7 @@ public class UI_Dialogue : MonoBehaviour
                 break;
         }
 
-        if (characterSprite != null)
+        if (characterSprite != null && isShowIcon)
         {
             _charactersImage[imageId].gameObject.SetActive(true);
             _charactersImage[imageId].sprite = characterSprite;

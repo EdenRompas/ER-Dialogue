@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3954353d284bcdd4e8419b6c2c715891, type: 3}
+  m_Name: Dummy
+  m_EditorClassIdentifier: 
+  StartNode:
+    Position: {x: 0, y: 0}
+    ConnectedNodeGuids:
+    - a7b1dfe0-ccdc-4768-9f1a-9e1b88ba33de
+  DialogueLines:
+  - Guid: a7b1dfe0-ccdc-4768-9f1a-9e1b88ba33de
+    CharacterName: Ellen
+    Lines:
+    - Hey, I havan't seen you arround here before. Are you passing through?
+    CharacterSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    IconPosition: 0
+    IsShowIcon: 1
+    Position: {x: 187, y: 0}
+    ConnectedNodeGuids:
+    - 5f7929a9-bc71-4b4b-b3c6-d19a7946561d
+  - Guid: 5f7929a9-bc71-4b4b-b3c6-d19a7946561d
+    CharacterName: Ryan
+    Lines:
+    - More or less. Just trying to find a quiet place to rest before nightfall
+    CharacterSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    IconPosition: 1
+    IsShowIcon: 1
+    Position: {x: 648, y: 0}
+    ConnectedNodeGuids:
+    - 5f6268e0-9b3d-4f3b-8b31-77aad605e58e
+  - Guid: 5f6268e0-9b3d-4f3b-8b31-77aad605e58e
+    CharacterName: Ellen
+    Lines:
+    - You picked a strange road for that. Bandits like to wait near this trail. I'm
+      Ellen, by the way
+    CharacterSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    IconPosition: 0
+    IsShowIcon: 1
+    Position: {x: 1107, y: 0}
+    ConnectedNodeGuids:
+    - ee3edad1-52be-454d-8910-7aa47570813d
+  - Guid: ee3edad1-52be-454d-8910-7aa47570813d
+    CharacterName: Ryan
+    Lines:
+    - Nice to meet you, Ellen. And thanks for the warning. Are you a local?
+    CharacterSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    IconPosition: 1
+    IsShowIcon: 1
+    Position: {x: 1665, y: 0}
+    ConnectedNodeGuids: []

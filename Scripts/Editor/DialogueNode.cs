@@ -18,8 +18,8 @@ public class DialogueNode : Node
     public Port OutputPort {  get; private set; }
 
     private TextField _characterName;
-    private Toggle _showIconToggle;
-    private ObjectField _spriteField;
+    private Toggle _isShowIconToggle;
+    private ObjectField _characterSpriteField;
     private EnumField _iconPositionField;
 
     private VisualElement _linesContainer;
@@ -46,21 +46,21 @@ public class DialogueNode : Node
         });
         mainContainer.Add(_characterName);
 
-        _showIconToggle = new Toggle("Is Show Icon");
-        _showIconToggle.RegisterValueChangedCallback(evt =>
+        _isShowIconToggle = new Toggle("Is Show Icon");
+        _isShowIconToggle.RegisterValueChangedCallback(evt =>
         {
             IsShowIcon = evt.newValue;
             UpdateIconVisibility();
         });
-        mainContainer.Add(_showIconToggle);
+        mainContainer.Add(_isShowIconToggle);
 
-        _spriteField = new ObjectField("Character Sprite")
+        _characterSpriteField = new ObjectField("Character Sprite")
         {
             objectType = typeof(Sprite),
             allowSceneObjects = false
         };
-        _spriteField.RegisterValueChangedCallback(evt => CharacterSprite = evt.newValue as Sprite);
-        mainContainer.Add(_spriteField);
+        _characterSpriteField.RegisterValueChangedCallback(evt => CharacterSprite = evt.newValue as Sprite);
+        mainContainer.Add(_characterSpriteField);
 
         var iconPositionField = new EnumField("Icon Position", IconPosition.Left);
         iconPositionField.Init(IconPosition.Left);
@@ -101,8 +101,8 @@ public class DialogueNode : Node
         title = string.IsNullOrEmpty(characterName) ? "Input Name" : characterName;
 
         _characterName.SetValueWithoutNotify(characterName);
-        _showIconToggle?.SetValueWithoutNotify(IsShowIcon);
-        _spriteField?.SetValueWithoutNotify(CharacterSprite);
+        _isShowIconToggle?.SetValueWithoutNotify(IsShowIcon);
+        _characterSpriteField?.SetValueWithoutNotify(CharacterSprite);
         _iconPositionField?.SetValueWithoutNotify(IconPosition);
 
         UpdateIconVisibility();
@@ -113,8 +113,11 @@ public class DialogueNode : Node
     {
         var display = IsShowIcon ? DisplayStyle.Flex : DisplayStyle.None;
 
-        _spriteField.style.display = display;
+        _characterSpriteField.style.display = display;
         _iconPositionField.style.display = display;
+
+        _characterSpriteField.SetValueWithoutNotify(null);
+        _iconPositionField.SetValueWithoutNotify(IconPosition.Left);
     }
 
     private void DrawLinesList()

@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueManager: {fileID: 6013130998708058382}
-  _dialogueSO: {fileID: 11400000, guid: 25a38a9583d7f8a4fb594a0143ec218d, type: 2}
+  _dialogueSO: {fileID: 11400000, guid: 12f9a68358c6d6046b252501aa672a63, type: 2}
   _startDialogueInput: {fileID: -2868297255769108115, guid: 0aca155314b81a845aed223f0519355e, type: 3}
 --- !u!1 &2322754762104601768
 GameObject:
