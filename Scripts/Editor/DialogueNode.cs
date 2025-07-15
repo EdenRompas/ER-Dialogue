@@ -83,8 +83,8 @@ public class DialogueNode : Node
 
         DrawLinesList();
 
-        AddInputPort("In");
-        AddOutputPort("Out");
+        AddInputPort();
+        AddOutputPort();
 
         RefreshExpandedState();
         RefreshPorts();
@@ -116,8 +116,11 @@ public class DialogueNode : Node
         _characterSpriteField.style.display = display;
         _iconPositionField.style.display = display;
 
-        _characterSpriteField.SetValueWithoutNotify(null);
-        _iconPositionField.SetValueWithoutNotify(IconPosition.Left);
+        if (!IsShowIcon)
+        {
+            _characterSpriteField.SetValueWithoutNotify(null);
+            _iconPositionField.SetValueWithoutNotify(IconPosition.Left);
+        }
     }
 
     private void DrawLinesList()
@@ -180,17 +183,17 @@ public class DialogueNode : Node
         }
     }
 
-    private void AddInputPort(string portName)
+    private void AddInputPort()
     {
         InputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-        InputPort.portName = portName;
+        InputPort.portName = "Connection Dialogue";
         inputContainer.Add(InputPort);
     }
 
-    private void AddOutputPort(string portName)
+    private void AddOutputPort()
     {
         OutputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-        OutputPort.portName = portName;
+        OutputPort.portName = "Next Dialogue";
         outputContainer.Add(OutputPort);
     }
 }

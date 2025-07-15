@@ -17,7 +17,7 @@ public class StartNode : Node
         capabilities &= ~Capabilities.Deletable;
 
         OutputPort = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
-        OutputPort.portName = "Start";
+        OutputPort.portName = "Next Dialogue";
         outputContainer.Add(OutputPort);
 
         RefreshExpandedState();
