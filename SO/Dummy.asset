@@ -24,7 +24,7 @@ MonoBehaviour:
     CharacterSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     IconPosition: 0
     IsShowIcon: 1
-    Position: {x: 187, y: 0}
+    Position: {x: 143, y: 0}
     ConnectedNodeGuids:
     - 5f7929a9-bc71-4b4b-b3c6-d19a7946561d
   - Guid: 5f7929a9-bc71-4b4b-b3c6-d19a7946561d
@@ -34,7 +34,7 @@ MonoBehaviour:
     CharacterSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     IconPosition: 1
     IsShowIcon: 1
-    Position: {x: 648, y: 0}
+    Position: {x: 435, y: 0}
     ConnectedNodeGuids:
     - 5f6268e0-9b3d-4f3b-8b31-77aad605e58e
   - Guid: 5f6268e0-9b3d-4f3b-8b31-77aad605e58e
@@ -45,7 +45,7 @@ MonoBehaviour:
     CharacterSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     IconPosition: 0
     IsShowIcon: 1
-    Position: {x: 1107, y: 0}
+    Position: {x: 723, y: 0}
     ConnectedNodeGuids:
     - ee3edad1-52be-454d-8910-7aa47570813d
   - Guid: ee3edad1-52be-454d-8910-7aa47570813d
@@ -55,5 +55,5 @@ MonoBehaviour:
     CharacterSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     IconPosition: 1
     IsShowIcon: 1
-    Position: {x: 1665, y: 0}
+    Position: {x: 1007, y: 0}
     ConnectedNodeGuids: []

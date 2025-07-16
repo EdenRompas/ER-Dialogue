@@ -1,4 +1,4 @@
-using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
@@ -151,7 +151,17 @@ public class DialogueNode : Node
         container.style.flexDirection = FlexDirection.Row;
 
         var lineField = new TextField() { value = value };
-        lineField.style.flexGrow = 1;
+        lineField.multiline = true;
+        lineField.RegisterCallback<GeometryChangedEvent>(_ =>
+        {
+            var input = lineField.Q("unity-text-input");
+            if (input != null)
+            {
+                input.style.minHeight = 32;
+                input.style.width = 214;
+                input.style.whiteSpace = WhiteSpace.Normal;
+            }
+        });
 
         lineField.RegisterValueChangedCallback(evt =>
         {
