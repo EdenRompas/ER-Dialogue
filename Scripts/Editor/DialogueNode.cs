@@ -41,7 +41,7 @@ public class DialogueNode : Node
 
             if (evt.newValue == "")
             {
-                title = "Input Name";
+                title = "Name";
             }
         });
         mainContainer.Add(_characterName);

@@ -11,6 +11,16 @@ public class DialogueGraphWindow : EditorWindow
     private SO_Dialogue _dialogueSO;
     private Label _fileNameLabel;
 
+    [MenuItem("Tools/ER Dialogue")]
+    public static void ShowWindow()
+    {
+        var window = GetWindow<DialogueGraphWindow>("ER Dialogue");
+        window.Show();
+
+        window._dialogueGraphView.ClearGraph();
+        window._dialogueGraphView.CreateStartNode();
+    }
+
     public static void OpenDialogueGraphWindow(SO_Dialogue dialogueSO)
     {
         DialogueGraphWindow window = GetWindow<DialogueGraphWindow>("Dialogue Graph");
@@ -194,7 +204,7 @@ public class DialogueGraphWindow : EditorWindow
 
         if (string.IsNullOrEmpty(path)) return;
 
-        var newSO = ScriptableObject.CreateInstance<SO_Dialogue>();
+        var newSO = CreateInstance<SO_Dialogue>();
 
         var oldSO = _dialogueSO;
 
@@ -209,7 +219,6 @@ public class DialogueGraphWindow : EditorWindow
 
         Debug.Log($"New dialogue saved as: {path}");
     }
-
 
     private void Load(SO_Dialogue dialogueSO)
     {

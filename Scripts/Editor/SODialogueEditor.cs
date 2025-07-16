@@ -16,7 +16,7 @@ public class SO_DialogueEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.LabelField("Dialogue Data", EditorStyles.boldLabel);
-        EditorGUILayout.HelpBox("Modify the dialogue through the graph window, and don’t forget to save your progress", MessageType.Info);
+        EditorGUILayout.HelpBox("Use the graph window to modify the dialogue. Don’t forget to save your progress.", MessageType.Info);
 
         if (GUILayout.Button("Edit"))
         {
